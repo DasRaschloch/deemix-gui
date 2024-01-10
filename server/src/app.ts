@@ -202,10 +202,17 @@ export class DeemixApp {
 
 		const slimmedObjects: any[] = []
 
+		const predefinedDate = new Date(this.settings.filterDate)
 		downloadObjs.forEach((downloadObj: any) => {
 			// Check if element is already in queue
 			if (Object.keys(this.queue).includes(downloadObj.uuid) && !retry) {
 				this.listener.send('alreadyInQueue', downloadObj.getEssentialDict())
+				return
+			}
+
+			// When Date filtering is enabled ignore everything with a release date before the set date
+			if (this.settings.filterByReleaseDate && downloadObj.release_date != null && new Date(downloadObj.release_date) < predefinedDate) {
+				this.listener.send('alreadyDownloaded', downloadObj.getEssentialDict())
 				return
 			}
 

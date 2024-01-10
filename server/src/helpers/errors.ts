@@ -38,6 +38,17 @@ export class AlreadyInQueue extends QueueError {
 	}
 }
 
+export class AlreadyDownloaded extends QueueError {
+	item: any
+	silent: boolean
+	constructor(dwObj: any, silent: boolean) {
+		super(`${dwObj.artist} - ${dwObj.title} was already Downloaded.`)
+		this.name = 'AlreadyDownloaded'
+		this.item = dwObj
+		this.silent = silent
+	}
+}
+
 export class NotLoggedIn extends QueueError {
 	constructor() {
 		super(`You must be logged in to start a download.`)

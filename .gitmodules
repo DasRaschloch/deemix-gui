@@ -1,3 +1,6 @@
 [submodule "webui"]
 	path = webui
 	url = ../deemix-webui
+[submodule "server/_dependencies/deemix-js"]
+	path = server/_dependencies/deemix-js
+	url = https://github.com/DasRaschloch/deemix-js.git

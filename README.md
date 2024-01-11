@@ -33,7 +33,14 @@ Then from the root folder run `yarn dist` to make a distributable package for yo
 
 ## Docker (Credits go to Bockiii for this)
 
-If you want to build the Dockerimage for yourself you dont need to pull the whole Repo/Submodules. The image will always pull from the main branch and fetch the related submodules.
+If you want to build the Dockerimage for yourself you dont need to pull the whole Repo. The image will always pull from the main branch and fetch the related submodules.
+### Example for Build Command:
+1. Download the dockerfile
+2. Navigate to the folder where you downloaded the file into
+3. run the following command (Docker Desktop or docker Engine need to be installed on the system):
+```
+docker build -t deemix .
+```
 
 
 ### Example for Docker:
@@ -68,10 +75,6 @@ services:
 			- 6595:6595
 ```
 
-### Updating Deemix
-
-Pull the latest container for the latest Deemix version
-
 ### Parameters:
 
 | Parameter | Function |
@@ -95,7 +98,6 @@ To access the web interface, go to http://YOURSERVERIP:6595
 Setting this environment variable to true will enable a serverwide login. In this mode, only one user needs to log in and every session will use the same login. You do not need to provide an ARL to the container, deemix will store the login information in the config folder.
 
 I also added a functionality that will enable Single_User mode when any ARL is configured at all. This will help legacy installations that still use old configuration parameters. As long as the ARL is set to anything, the mode is enabled. The provided ARL will NOT be processed, so you will need to login once using the web interface.
-
 
 ## Feature requests
 I dont really plan to actively maintain this Repo. There is no guarantee, that i will

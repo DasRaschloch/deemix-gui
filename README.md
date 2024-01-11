@@ -37,7 +37,7 @@ If you want to build the Dockerimage for yourself you dont need to pull the whol
 ### Example for Build Command:
 1. Download the dockerfile
 2. Navigate to the folder where you downloaded the file into
-3. run the following command (Docker Desktop or docker Engine need to be installed on the system):
+3. run the following command (Docker Desktop or Docker Engine need to be installed on the system):
 ```
 docker build -t deemix .
 ```

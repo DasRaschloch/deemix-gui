@@ -99,9 +99,6 @@ Setting this environment variable to true will enable a serverwide login. In thi
 
 I also added a functionality that will enable Single_User mode when any ARL is configured at all. This will help legacy installations that still use old configuration parameters. As long as the ARL is set to anything, the mode is enabled. The provided ARL will NOT be processed, so you will need to login once using the web interface.
 
-## Feature requests
-I dont really plan to actively maintain this Repo. There is no guarantee, that i will
-
 # License
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

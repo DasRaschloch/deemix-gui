@@ -2,11 +2,11 @@ FROM node:20-alpine as builder
 
 RUN apk --no-cache add git
 
-RUN npm install yarn
-
 WORKDIR /
 
 RUN git clone --recursive https://github.com/DasRaschloch/deemix-gui.git
+
+WORKDIR /deemix-gui
 
 RUN yarn install-all
 

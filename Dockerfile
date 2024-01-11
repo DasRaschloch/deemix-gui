@@ -1,6 +1,8 @@
-FROM node:20-alpine as builder
+FROM node:16-alpine as builder
 
 RUN apk --no-cache add git
+
+RUN apk add libstdc++
 
 WORKDIR /
 

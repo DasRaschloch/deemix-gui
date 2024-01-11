@@ -20,7 +20,7 @@ LABEL \
     app.deemix.image.description="Docker image for Deemix" \
     maintainer="Vaultalexandria"
 
-COPY --from=builder /deemix-gui/dist/deemix-server-linux /deemix
+COPY --from=builder /deemix-gui/dist/deemix-server-linux /deemix-server
 
 COPY --from=builder /deemix-gui/docker/ /
 

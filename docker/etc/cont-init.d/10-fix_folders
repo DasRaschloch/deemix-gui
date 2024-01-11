@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bash
+
+# test write access to download and config folder and test internet connectivity
+printf '[cont-init.d] Fixing Folder Permissions - Config Folder\n'
+
+chown -R abc:abc /config
+
+# find all folders in the download folder and own them to the container user. This will not change files but should run quicker on big collections.
+if [ ! -z ${DISABLE_OWNERSHIP_CHECK} ]; then
+    printf '[cont-init.d] Download Folder Ownership Check disabled by Environment Variable\n'
+else
+    printf '[cont-init.d] Fixing Folder Permissions - Downloads Folder\n'
+	find /downloads -type d -exec chown abc:abc {} +
+fi
+
+
+# add executability to server
+chmod +x /deemix-server
+
+# Fix misconfigured download locations. The container's download map is always /downloads.
+if [ -f "/config/config.json" ]; then
+    jq '.downloadLocation = "/downloads"' /config/config.json > tmp.$$.json && mv tmp.$$.json /config/config.json
+    chown abc:abc /config/config.json
+fi

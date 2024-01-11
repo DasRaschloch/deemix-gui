@@ -2,8 +2,6 @@ FROM node:16-alpine as builder
 
 RUN apk --no-cache add git
 
-RUN apk add libstdc++
-
 WORKDIR /
 
 RUN git clone --recursive https://github.com/DasRaschloch/deemix-gui.git
@@ -15,6 +13,10 @@ RUN yarn install-all
 RUN yarn dist-server
 
 FROM lsiobase/alpine:3.16
+
+RUN apk add gcompat
+
+RUN apk add libstdc++
 
 LABEL \
     app.deemix.image.url="https://github.com/DasRaschloch/deemix-gui" \

@@ -3,7 +3,7 @@ An electron app that wraps deemix-webui and lets you use the deemix-js library
 
 ## Changes compared to the original Repo (https://gitlab.com/RemixDev/deemix-gui)
 - Added the option to download albums and tracks released after a date specified by the user
-- Added Docker support (The scripts are based on this Repo by Bockiii: https://gitlab.com/Bockiii/deemix-docker)
+- Added Docker support (The scripts are based on the Repo by Bockiii: https://gitlab.com/Bockiii/deemix-docker)
 
 ## Running from source
 You need to use nodejs 16.x, using `yarn` is recommended.

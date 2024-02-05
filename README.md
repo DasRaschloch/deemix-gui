@@ -37,7 +37,7 @@ If you want to build the Dockerimage for yourself you dont need to pull the whol
 ### Example for Build Command:
 1. Download the dockerfile
 2. Navigate to the folder where you downloaded the file into
-3. run the following command (Docker Desktop or Docker Engine need to be installed on the system):
+3. Run the following command (Docker Desktop or Docker Engine need to be installed on the system):
 ```
 docker build -t deemix .
 ```
@@ -53,7 +53,7 @@ $ docker run -d --name Deemix \
 				-e UMASK_SET=022 \
 				-e DEEMIX_SINGLE_USER=true \
 				-p 6595:6595 \
-				registry.gitlab.com/bockiii/deemix-docker
+				deemix
 ```
 
 ### Example for Docker Compose:
@@ -61,7 +61,7 @@ $ docker run -d --name Deemix \
 version: '3.3'
 services:
 	deemix:
-		image: registry.gitlab.com/bockiii/deemix-docker
+		image: deemix #This is the imagename that was specified in the build command
 		container_name: Deemix
 		volumes:
 			- /your/storage/path/:/downloads
@@ -89,7 +89,7 @@ services:
 | `-p 6595:6595` | Port opened for the web interface |
 | `-e INTPORT=3333` | EXTRA OPTIONAL: This changes the internal port of deemix. DON'T CHANGE THIS IF YOU DONT KNOW WHY YOU WOULD DO IT |
 | `-e DISABLE_OWNERSHIP_CHECK=true` | EXTRA OPTIONAL: This disables the ownership check on the downloads folder. Can lead to download issues if the folder is not owned by the correct user. DON'T USE THIS IF YOU DONT KNOW WHY YOU WOULD NEED IT |
-| `registry.gitlab.com/bockiii/deemix-docker` | This container |
+| `deemix` | The imagename used in the build command. In my examples this is always deemix |
 
 To access the web interface, go to http://YOURSERVERIP:6595 
 

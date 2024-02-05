@@ -61,7 +61,7 @@ $ docker run -d --name Deemix \
 version: '3.3'
 services:
 	deemix:
-		image: deemix #This is the imagename that was specified in the build command
+		image: deemix
 		container_name: Deemix
 		volumes:
 			- /your/storage/path/:/downloads

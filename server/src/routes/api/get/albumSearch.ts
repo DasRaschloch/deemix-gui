@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express'
 // @ts-expect-error
-import { Deezer } from 'deezer-js'
+import { Deezer } from '@vaultalexandria/deezer-js'
 
 import type { ApiHandler } from '../../../types'
 import { sessionDZ } from '../../../app'

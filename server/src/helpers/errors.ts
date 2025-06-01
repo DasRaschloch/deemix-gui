@@ -1,4 +1,4 @@
-const { TrackFormats } = require('deezer-js')
+const { TrackFormats } = require('@vaultalexandria/deezer-js')
 
 const bitrateLabels = {
 	[TrackFormats.MP4_RA3]: '360 HQ',

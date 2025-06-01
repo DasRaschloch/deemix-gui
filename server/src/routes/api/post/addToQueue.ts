@@ -1,5 +1,5 @@
 // @ts-expect-error
-import { Deezer } from 'deezer-js'
+import { Deezer } from '@vaultalexandria/deezer-js'
 import { ApiHandler } from '../../../types'
 import { sessionDZ } from '../../../app'
 import { logger } from '../../../helpers/logger'

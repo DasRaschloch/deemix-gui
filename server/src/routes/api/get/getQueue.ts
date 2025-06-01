@@ -1,4 +1,4 @@
-// import { Deezer } from 'deezer-js'
+// import { Deezer } from '@vaultalexandria/deezer-js'
 import { ApiHandler } from '../../../types'
 
 const path: ApiHandler['path'] = '/getQueue'

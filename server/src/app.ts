@@ -211,7 +211,11 @@ export class DeemixApp {
 			}
 
 			// When Date filtering is enabled ignore everything with a release date before the set date
-			if (this.settings.filterByReleaseDate && downloadObj.release_date != null && new Date(downloadObj.release_date) < predefinedDate) {
+			if (
+				this.settings.filterByReleaseDate &&
+				downloadObj.release_date != null &&
+				new Date(downloadObj.release_date) < predefinedDate
+			) {
 				this.listener.send('alreadyDownloaded', downloadObj.getEssentialDict())
 				return
 			}
@@ -403,5 +407,64 @@ export class DeemixApp {
 				}
 			}
 		})
+	}
+
+	async RestartDownload(uuid: string, sessionId: string) {
+		const dz = sessionDZ[sessionId]
+		const data = uuid.split('_')
+		let url = ''
+		let bitrate = 0
+
+		if (data.length === 4) {
+			if (data[0] === 'spotify') {
+				url = `https://open.spotify.com/${data[1]}/${data[2]}`
+				bitrate = Number(data[3])
+			}
+		} else {
+			if (data[0] === 'playlist' && data[1].endsWith('_top_track')) {
+				data[0] = 'artist'
+				data[1] = data[1].replace('_top_track', '/top_track')
+			}
+			url = `https://www.deezer.com/${data[0]}/${data[1]}`
+			bitrate = Number(data[2])
+		}
+
+		try {
+			const obj = await this.addToQueue(dz, [url], bitrate, true)
+			return { result: true, data: { url, bitrate, obj } }
+		} catch (e) {
+			switch (e.name) {
+				case 'NotLoggedIn':
+					this.listener.send('queueError' + e.name)
+					return { result: false, errid: e.name, data: { url, bitrate } }
+				case 'CantStream':
+					this.listener.send('queueError' + e.name, bitrate)
+					return { result: false, errid: e.name, data: { url, bitrate } }
+				default:
+					logger.error(e)
+					return { result: false, errid: 'UnknownError', data: { url, bitrate } }
+			}
+		}
+	}
+
+	async RestartAllErrors(sessionId: string) {
+		const failedUUIDs = []
+		for (const uuid in this.queue) {
+			const item = this.queue[uuid]
+			if (item.status === 'failed' || item.status === 'withErrors') {
+				failedUUIDs.push(uuid)
+			}
+		}
+
+		const responses: any[] = []
+		for (const uuid of failedUUIDs) {
+			const response = await this.RestartDownload(uuid, sessionId)
+			responses.push(response)
+			if (response.errid === 'NotLoggedIn') {
+				logger.warn('User is not logged in. Cancelling further attempts to restart downloads.')
+				break
+			}
+		}
+		return responses
 	}
 }

@@ -4,21 +4,22 @@ import { ApiHandler } from '../../../types'
 import { sessionDZ } from '../../../app'
 import { logger } from '../../../helpers/logger'
 
-const path: ApiHandler['path'] = '/retryDownload'
+const path: ApiHandler['path'] = '/retryFailedDownloads'
 
 const handler: ApiHandler['handler'] = async (req, res) => {
 	if (!sessionDZ[req.session.id]) sessionDZ[req.session.id] = new Deezer()
 	const deemix = req.app.get('deemix')
 
-	let response: any
+	let responses: any[] = []
+
 	try {
-		response = await deemix.RestartDownload(req.body.uuid, req.session.id)
+		responses = await deemix.RestartAllErrors(req.session.id, responses)
 	} catch (e) {
 		logger.error(e)
-		res.send({ result: false, errid: 'InternalError', data: { error: e.message } })
-		return
+		return res.send({ result: false, errid: 'InternalError', data: { error: e.message } })
 	}
-	res.send(response)
+
+	res.send({ result: true, data: responses })
 }
 
 const apiHandler: ApiHandler = { path, handler }

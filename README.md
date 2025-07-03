@@ -4,6 +4,12 @@ An electron app that wraps deemix-webui and lets you use the deemix-js library
 ## Changes compared to the original Repo (https://gitlab.com/RemixDev/deemix-gui)
 - Added the option to download albums and tracks released after a date specified by the user
 - Added Docker support (The scripts are based on the Repo by Bockiii: https://gitlab.com/Bockiii/deemix-docker)
+- Added a retry button to the queue to retry all failed downloads
+- All API calls are now executed synchronously instead of parallel, to lessen the strain on Deezer’s API. (For example, if you wanted to download all of your favorite artists, Deezer would ban your IP for spam after ~200 artists.)
+- To ensure that Deezer’s request limit of 50 calls per 5 seconds is respected, I’ve also added a delay between each request. (This means the program will be a bit slower overall, but less prone to failure.)
+
+#### WARNING: Due to the changes regarding API limiting and delays, the program now takes more time to crawl all associated tracks per artist, playlist, or album (e.g. approximately 2–3 minutes per discography), but it is also able to retrieve a large number of them in bulk (I have tested it with 1,800+ favorite artists).
+If you want to use deemix to only occasionally download one or two discographies or playlists, be aware that it will be slower than the old version.
 
 ## Running from source
 You need to use nodejs 16.x, using `yarn` is recommended.
